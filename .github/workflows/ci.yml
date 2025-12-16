@@ -1,0 +1,30 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Vérification fichiers
+        run: |
+          test -f index.html
+          test -f style.css
+          echo "Fichiers présents"
+
+      - name: Génération artefact
+        run: |
+          mkdir build
+          cp index.html style.css build/
+
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: build
