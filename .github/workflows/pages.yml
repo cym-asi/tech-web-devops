@@ -1,0 +1,19 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]  # se déclenche à chaque push sur la branche main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .  # tout le contenu du repo
+
+      - uses: actions/deploy-pages@v4
